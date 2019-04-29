@@ -115,6 +115,9 @@ Go here to find [__all FAQs__](http://www.wprssimporter.com/faqs/)
 
 == Changelog ==
 
+= Version 3.20 (2019-4-25)
+* Fixed: Variable redeclaration error within excerpt_functions.php PHP7 error.
+
 = Version 3.15 (2015-5-10) =
 * Fixed: Problem due to repository guidelines of Wordpress.
 
