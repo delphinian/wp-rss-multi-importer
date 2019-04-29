@@ -3,11 +3,13 @@
 
 
 function show_start(){
-	
 	$time_pre = microtime(true);
+    unset($time_pre);
 }
 
+
 function show_end(){
+    $time_pre = microtime(true);
 	$time_post = microtime(true);
 	$exec_time = $time_post - $time_pre;
 	//add_post_meta(1, 'exec_time', $exec_time);
@@ -58,14 +60,14 @@ function rssmi_video($link,$targetWindow){  //  CHECKS IF VIDEO COMES FROM YOUTU
 		    $video_id = $match[1];
 			$vlink='http://www.youtube.com/embed/'.$video_id.'?rel=0&amp;wmode=transparent';
 			$openWindow='class="rssmi_youtube"';
-			$t="yt";
+//			$t="yt";
 		}
 	} else if (strpos($link,'vimeo.com')>0){	
 		if(preg_match_all('#vimeo\.com/(\w*/)*(\d+)#i',$link,$match)){
 			$video_id = $match[2][0];
 			$vlink='http://player.vimeo.com/video/'.$video_id;
 			$openWindow='class="rssmi_vimeo"';
-			$t="vm";
+//			$t="vm";
 		}				
 	} else {
 		if($targetWindow==0){
@@ -78,7 +80,7 @@ function rssmi_video($link,$targetWindow){  //  CHECKS IF VIDEO COMES FROM YOUTU
 	//$openWindow='class="colorbox"';	
 	$vlink=$link;
 	$video_id=null;
-	$t='';
+//	$t='';
 	}
 	return array($vlink,$openWindow,$video_id);		
 }
@@ -118,6 +120,7 @@ function rssmi_yt_video_content($content){
 
 
 function rssmi_vimeo_video_content($content){
+    $vv_content = '';
 	$x=rssmi_strip_attributes($content);
 	preg_match_all('#<p.*?>(.*?)<\/p>#', $x, $matches);  //get all links
 	foreach ($matches[0] as $match){
@@ -185,7 +188,9 @@ function getDefaultCatImage($catID){
 		}else{
 			return array(False,'');
 		}
-	}
+    }else{
+        return array(False,'');
+    }
 }
 
 
@@ -257,7 +262,7 @@ if ($noProcess==0){
 			
 		
 			
-				$content=findalignImage($maxchars,$content,$adjustImageSize,$float,$openWindow,$mediaImage,$thisLink,$noFollow,$catID,$thisLink,$stripSome,$useMediaImage);	
+				$content=findalignImage($maxchars,$content,$adjustImageSize,$float,$openWindow,$mediaImage,$thisLink,$noFollow,$catID,$stripSome,$useMediaImage);
 				
 				
 				
@@ -567,7 +572,7 @@ function rssmi_lightbox_filter($link,$targetWindow){
 	
 	
 	
-	function findalignImage($maxchars,$content,$adjustImageSize,$float,$openWindow,$mediaImage,$thisLink,$noFollow,$catID,$thisLink,$stripSome,$useMediaImage){
+	function findalignImage($maxchars,$content,$adjustImageSize,$float,$openWindow,$mediaImage,$thisLink,$noFollow,$catID,$stripSome,$useMediaImage){
 		
 		
 		
